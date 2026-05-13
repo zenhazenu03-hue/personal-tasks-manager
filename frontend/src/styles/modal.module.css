@@ -1,0 +1,244 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modalContent {
+  position: relative;
+  background-color: var(--card-bg);
+  width: 100%;
+  max-width: 550px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modalHeading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-main);
+  padding: 20px 24px 0;
+  margin: 0;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  margin-top: 8px; /* Give some breathing room since close btn is absolute now */
+}
+
+.taskTitleInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+  background: transparent;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.taskTitleInput:hover, .taskTitleInput:focus {
+  background-color: #f8fafc;
+}
+
+.taskTitleInput::placeholder {
+  color: #cbd5e1;
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeModalBtn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+}
+
+.modalBody {
+  padding: 0 24px 24px;
+}
+
+.taskDescInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  min-height: 80px;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background: transparent;
+  margin-bottom: 16px;
+  line-height: 1.5;
+  padding: 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+}
+
+.taskDescInput:hover, .taskDescInput:focus {
+  background-color: #f8fafc;
+}
+
+.taskDescInput::placeholder {
+  color: var(--text-muted);
+}
+
+.taskOptions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.taskOptionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.taskOptionBtn:hover {
+  background-color: #f1f5f9;
+  color: var(--text-main);
+  border-color: #cbd5e1;
+}
+
+.taskOptionBtn.active {
+  background-color: #eff6ff;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Specific Option Colors */
+.activeCalendar {
+  background-color: #fef2f2 !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.activePriorityHigh {
+  background-color: #fef2f2 !important;
+  color: #ef4444 !important;
+  border-color: #ef4444 !important;
+}
+
+.activePriorityMedium {
+  background-color: #fff7ed !important;
+  color: #f97316 !important;
+  border-color: #f97316 !important;
+}
+
+.activePriorityLow {
+  background-color: #fefce8 !important;
+  color: #eab308 !important;
+  border-color: #eab308 !important;
+}
+
+/* 2 Colors feature for Reminder */
+.activeReminder {
+  background: linear-gradient(135deg, #eff6ff 0%, #f3e8ff 100%) !important;
+  border-color: #a855f7 !important;
+}
+.activeReminder span, .activeReminder svg {
+  background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+/* Ensure the SVG icon uses stroke gradient workaround or just simple color */
+.activeReminder svg {
+  stroke: #3b82f6 !important;
+  -webkit-text-fill-color: initial;
+}
+
+.modalFooter {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #f8fafc;
+}
+
+.cancelBtn {
+  background: none;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+  background-color: #e2e8f0;
+  color: var(--text-main);
+}
+
+.addTaskSubmitBtn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+}
+
+.addTaskSubmitBtn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.3);
+}
+
+.addTaskSubmitBtn:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}

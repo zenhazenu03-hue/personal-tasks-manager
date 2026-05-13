@@ -1,0 +1,147 @@
+.sidebar {
+  width: 80px;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar:hover, .sidebarPinned {
+  width: 260px;
+}
+
+.sidebarLogoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  margin-bottom: 32px;
+  width: 260px;
+  box-sizing: border-box;
+}
+
+.sidebarLogo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logoIcon {
+  flex-shrink: 0;
+}
+
+.logoText {
+  opacity: 0;
+  transition: opacity 0s;
+  display: inline-block;
+}
+
+.sidebar:hover .logoText,
+.sidebarPinned .logoText {
+  opacity: 1;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.pinToggleBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s;
+}
+
+.pinToggleBtn:hover {
+  color: var(--primary-color);
+}
+
+.sidebar:hover .pinToggleBtn,
+.sidebarPinned .pinToggleBtn {
+  opacity: 1;
+}
+
+.sidebarNav {
+  flex: 1;
+}
+
+.navItem {
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: 260px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.navItem:hover, .navItemActive {
+  background-color: #f1f5f9;
+  color: var(--primary-color);
+  border-right: 3px solid var(--primary-color);
+}
+
+.navIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.navText {
+  opacity: 0;
+  transition: opacity 0s;
+  display: inline-block;
+}
+
+.sidebar:hover .navText,
+.sidebarPinned .navText {
+  opacity: 1;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.projectsSection {
+  margin-top: 24px;
+}
+
+.sectionHeader {
+  padding: 0 24px 0 56px;
+  margin-bottom: 8px;
+  width: 260px;
+  box-sizing: border-box;
+}
+
+.sectionTitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transition: opacity 0s;
+  display: inline-block;
+}
+
+.sidebar:hover .sectionTitle,
+.sidebarPinned .sectionTitle {
+  opacity: 1;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
