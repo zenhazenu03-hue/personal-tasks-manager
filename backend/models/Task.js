@@ -1,27 +1,38 @@
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema({
+const TaskSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-    trim: true
+    required: [true, 'Please add a title'],
+    trim: true,
+    maxlength: [100, 'Title cannot be more than 100 characters']
   },
   description: {
     type: String,
-    trim: true
+    maxlength: [500, 'Description cannot be more than 500 characters']
   },
   status: {
     type: String,
-    enum: ['todo', 'in-progress', 'done'],
+    enum: ['todo', 'in_progress', 'done'],
     default: 'todo'
   },
   priority: {
     type: String,
-    enum: ['low', 'medium', 'high'],
-    default: 'medium'
+    enum: ['low', 'medium', 'high', null],
+    default: null
   },
-  dueDate: {
-    type: Date
+  date: {
+    type: String,
+    default: 'Today'
+  },
+  reminder: {
+    type: String,
+    default: null
+  },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'User',
+    required: false // Set to true once auth is implemented
   },
   createdAt: {
     type: Date,
@@ -29,4 +40,4 @@ const taskSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('Task', taskSchema);
+module.exports = mongoose.model('Task', TaskSchema);

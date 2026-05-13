@@ -5,7 +5,7 @@ import TaskModal from '../components/TaskModal';
 import calendarStyles from '../styles/calendar.module.css';
 import layoutStyles from '../styles/layout.module.css';
 
-const CalendarPage = ({ tasks, setTasks, setActivePage }) => {
+const CalendarPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
@@ -105,21 +105,9 @@ const CalendarPage = ({ tasks, setTasks, setActivePage }) => {
     });
   };
 
-  const handleSaveTask = (savedTask) => {
-    if (editingTask) {
-      setTasks((prevTasks) => prevTasks.map(task => 
-        task.id === savedTask.id ? savedTask : task
-      ));
-    } else {
-      setTasks((prevTasks) => [savedTask, ...prevTasks]);
-    }
-    setIsModalOpen(false);
-    setEditingTask(null);
-  };
-
   const openEditModal = (e, task) => {
     e.stopPropagation();
-    setEditingTask(task);
+    setEditingTask({ ...task, id: task._id || task.id });
     setIsModalOpen(true);
   };
 
@@ -181,7 +169,7 @@ const CalendarPage = ({ tasks, setTasks, setActivePage }) => {
                 <div className={calendarStyles.tasksList}>
                   {tasksForDay.slice(0, 3).map(task => (
                     <div 
-                      key={task.id} 
+                      key={task._id || task.id} 
                       className={`${calendarStyles.taskItem} ${task.priority ? calendarStyles['priority_' + task.priority] : ''}`}
                       onClick={(e) => openEditModal(e, task)}
                     >
@@ -212,7 +200,7 @@ const CalendarPage = ({ tasks, setTasks, setActivePage }) => {
           setIsModalOpen(false);
           setEditingTask(null);
         }} 
-        onSaveTask={handleSaveTask}
+        onSaveTask={onSaveTask}
         editingTask={editingTask}
       />
     </div>

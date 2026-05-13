@@ -2,13 +2,13 @@ import React from 'react';
 import { LayoutDashboard, CheckSquare, Settings, Calendar, Plus, User, LogOut } from 'lucide-react';
 import styles from '../styles/sidebar.module.css';
 
-const Sidebar = ({ activePage, setActivePage, onLogout }) => {
+const Sidebar = ({ activePage, setActivePage, onLogout, user }) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarLogoContainer}>
         <div className={styles.sidebarLogo}>
           <CheckSquare color="var(--primary-color)" className={styles.logoIcon} />
-          <span className={styles.logoText}>Flow Desk</span>
+          <span className={styles.logoText}>{user?.name || 'Flow Desk'}</span>
         </div>
       </div>
 

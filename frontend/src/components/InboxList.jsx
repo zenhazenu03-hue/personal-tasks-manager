@@ -36,7 +36,7 @@ const InboxList = ({ tasks, onDeleteTask, onEditTask, onDuplicateTask }) => {
               <button className={styles.actionBtn} onClick={() => onEditTask(task)}>
                 <Edit2 size={16} />
               </button>
-              <button className={styles.actionBtn} onClick={() => onDeleteTask(task.id)}>
+              <button className={styles.actionBtn} onClick={() => onDeleteTask(task._id || task.id)}>
                 <Trash2 size={16} />
               </button>
               <button className={styles.actionBtn} onClick={() => onDuplicateTask(task)}>

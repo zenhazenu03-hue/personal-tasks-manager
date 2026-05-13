@@ -5,24 +5,12 @@ import TaskModal from '../components/TaskModal';
 import styles from '../styles/mytasks.module.css';
 import layoutStyles from '../styles/layout.module.css';
 
-const MyTasksPage = ({ tasks, setTasks, setActivePage }) => {
+const MyTasksPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
 
-  const handleSaveTask = (savedTask) => {
-    if (editingTask && editingTask.id) {
-      setTasks((prevTasks) => prevTasks.map(task => 
-        task.id === savedTask.id ? savedTask : task
-      ));
-    } else {
-      setTasks((prevTasks) => [savedTask, ...prevTasks]);
-    }
-    setIsModalOpen(false);
-    setEditingTask(null);
-  };
-
   const handleEditTask = (task) => {
-    setEditingTask(task);
+    setEditingTask({ ...task, id: task._id || task.id });
     setIsModalOpen(true);
   };
 
@@ -66,7 +54,7 @@ const MyTasksPage = ({ tasks, setTasks, setActivePage }) => {
                   </div>
                 ) : (
                   columnTasks.map(task => (
-                    <div key={task.id} className={styles.kanbanCard} onClick={() => handleEditTask(task)}>
+                    <div key={task._id || task.id} className={styles.kanbanCard} onClick={() => handleEditTask(task)}>
                       <div className={styles.cardTitle}>{task.title}</div>
                       {task.description && <div className={styles.cardDesc}>{task.description}</div>}
                       
@@ -112,7 +100,7 @@ const MyTasksPage = ({ tasks, setTasks, setActivePage }) => {
           setIsModalOpen(false);
           setEditingTask(null);
         }} 
-        onSaveTask={handleSaveTask}
+        onSaveTask={onSaveTask}
         editingTask={editingTask}
       />
     </div>

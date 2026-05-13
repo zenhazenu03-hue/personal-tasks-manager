@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 import styles from '../styles/login.module.css';
 import { Mail, Lock, Layout, Github, Chrome, Facebook, User, ArrowLeft, UserPlus } from 'lucide-react';
+import { authApi } from '../utils/api';
 
 const SignupPage = ({ onSignup, setView }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSignup();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      await authApi.register({ name, email, password });
+      // After registration, log them in or redirect to login
+      const loginData = await authApi.login({ email, password });
+      onSignup(loginData.user, loginData.token);
+    } catch (err) {
+      setError(err.message || 'Failed to create account. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -61,6 +77,21 @@ const SignupPage = ({ onSignup, setView }) => {
 
             <form className={styles.form} onSubmit={handleSubmit}>
               <div className={styles.inputGroup}>
+                <label className={styles.label}>Full Name</label>
+                <div className={styles.inputWrapper}>
+                  <User size={18} className={styles.icon} />
+                  <input 
+                    type="text" 
+                    className={styles.input} 
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className={styles.inputGroup}>
                 <label className={styles.label}>Email Address</label>
                 <div className={styles.inputWrapper}>
                   <Mail className={styles.icon} size={18} />
@@ -90,8 +121,10 @@ const SignupPage = ({ onSignup, setView }) => {
                 </div>
               </div>
 
-              <button type="submit" className={styles.submitBtn}>
-                Create Free Account
+              {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
+
+              <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+                {isLoading ? 'Creating account...' : 'Create Free Account'}
               </button>
             </form>
 

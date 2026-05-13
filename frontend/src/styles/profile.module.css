@@ -10,7 +10,7 @@
 .profileHero {
   position: relative;
   background: linear-gradient(135deg, var(--primary-color), #6366f1);
-  background-image: url('/C:/Users/DELL/.gemini/antigravity/brain/90f052e6-a30f-4eb1-81af-457fe171d320/profile_banner_abstract_1778654125231.png');
+  /* background-image: url('../assets/profile_banner.png'); Placeholder for future asset */
   background-size: cover;
   background-position: center;
   height: 160px;

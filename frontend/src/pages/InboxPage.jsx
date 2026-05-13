@@ -6,7 +6,7 @@ import InboxList from '../components/InboxList';
 import inboxStyles from '../styles/inbox.module.css';
 import layoutStyles from '../styles/layout.module.css';
 
-const InboxPage = ({ tasks, setTasks, setActivePage }) => {
+const InboxPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
 
@@ -22,22 +22,17 @@ const InboxPage = ({ tasks, setTasks, setActivePage }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleSaveTask = (savedTask) => {
-    if (editingTask) {
-      setTasks((prevTasks) => prevTasks.map(task => 
-        task.id === savedTask.id ? savedTask : task
-      ));
-    } else {
-      setTasks((prevTasks) => [savedTask, ...prevTasks]);
-    }
-  };
-
-  const handleDeleteTask = (id) => {
-    setTasks((prevTasks) => prevTasks.filter(task => task.id !== id));
+  const handleDuplicateTask = (task) => {
+    const duplicate = {
+      ...task,
+      id: null, // Clear ID for a new task
+      title: `${task.title} (Copy)`
+    };
+    onSaveTask(duplicate);
   };
 
   const handleEditTask = (task) => {
-    setEditingTask(task);
+    setEditingTask({ ...task, id: task._id || task.id });
     setIsModalOpen(true);
   };
 
@@ -78,7 +73,7 @@ const InboxPage = ({ tasks, setTasks, setActivePage }) => {
       ) : (
         <InboxList 
           tasks={tasks} 
-          onDeleteTask={handleDeleteTask}
+          onDeleteTask={onDeleteTask}
           onEditTask={handleEditTask}
           onDuplicateTask={handleDuplicateTask}
         />
@@ -90,7 +85,7 @@ const InboxPage = ({ tasks, setTasks, setActivePage }) => {
           setIsModalOpen(false);
           setEditingTask(null);
         }} 
-        onSaveTask={handleSaveTask}
+        onSaveTask={onSaveTask}
         editingTask={editingTask}
       />
     </div>

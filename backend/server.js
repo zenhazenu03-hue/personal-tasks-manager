@@ -1,36 +1,46 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 const cors = require('cors');
+const connectDB = require('./config/db');
+
+// Load env vars
+dotenv.config();
+
+// Connect to database
+connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
+const { errorHandler } = require('./middleware/errorMiddleware');
+
 // Routes
 const tasksRouter = require('./routes/tasks');
-app.use('/api/tasks', tasksRouter);
+const authRouter = require('./routes/auth');
 
-// Database Connection Placeholder
-// Replace 'mongodb://localhost:27017/flowDesk' with your actual connection string
-const mongoURI = 'mongodb://localhost:27017/flowDesk';
-mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('MongoDB connected');
-}).catch(err => {
-  console.error('MongoDB connection error:', err);
-  console.log('Running without DB connection for layout testing purposes.');
-});
+app.use('/api/tasks', tasksRouter);
+app.use('/api/auth', authRouter);
+
+// Error Handler Middleware
+app.use(errorHandler);
 
 // Basic Route
 app.get('/', (req, res) => {
   res.send('flowDesk API is running');
 });
 
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`);
+  // Close server & exit process
+  // server.close(() => process.exit(1));
 });

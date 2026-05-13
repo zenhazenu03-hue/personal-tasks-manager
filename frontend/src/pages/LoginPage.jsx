@@ -2,14 +2,27 @@ import React, { useState } from 'react';
 import styles from '../styles/login.module.css';
 import loginImg from '../assets/login_page.jpg';
 import { Mail, Lock, Layout, Github, Chrome, Facebook, User, ArrowLeft } from 'lucide-react';
+import { authApi } from '../utils/api';
 
 const LoginPage = ({ onLogin, setView }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onLogin();
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const data = await authApi.login({ email, password });
+      onLogin(data.user, data.token);
+    } catch (err) {
+      setError(err.message || 'Failed to login. Please check your credentials.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -89,8 +102,10 @@ const LoginPage = ({ onLogin, setView }) => {
                 <a href="#" className={styles.forgotPassword}>Forgot password?</a>
               </div>
 
-              <button type="submit" className={styles.submitBtn}>
-                Sign in to Dashboard
+              {error && <div style={{ color: '#ef4444', fontSize: '0.875rem', marginBottom: '1rem', textAlign: 'center' }}>{error}</div>}
+
+              <button type="submit" className={styles.submitBtn} disabled={isLoading}>
+                {isLoading ? 'Signing in...' : 'Sign in to Dashboard'}
               </button>
             </form>
 
