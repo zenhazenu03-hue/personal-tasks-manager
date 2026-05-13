@@ -1,8 +1,8 @@
 import React from 'react';
-import { LayoutDashboard, CheckSquare, Settings, Calendar, Plus } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Settings, Calendar, Plus, User } from 'lucide-react';
 import styles from '../styles/sidebar.module.css';
 
-const Sidebar = () => {
+const Sidebar = ({ activePage, setActivePage }) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarLogoContainer}>
@@ -14,19 +14,38 @@ const Sidebar = () => {
 
       <nav className={styles.sidebarNav}>
         <ul>
-          <li className={`${styles.navItem} ${styles.navItemActive}`}>
+          <li 
+            className={`${styles.navItem} ${activePage === 'inbox' ? styles.navItemActive : ''}`}
+            onClick={() => setActivePage('inbox')}
+          >
             <LayoutDashboard className={styles.navIcon} />
             <span className={styles.navText}>Inbox</span>
           </li>
-          <li className={styles.navItem}>
+          <li 
+            className={`${styles.navItem} ${activePage === 'mytasks' ? styles.navItemActive : ''}`}
+            onClick={() => setActivePage('mytasks')}
+          >
             <CheckSquare className={styles.navIcon} />
             <span className={styles.navText}>My Tasks</span>
           </li>
-          <li className={styles.navItem}>
+          <li 
+            className={`${styles.navItem} ${activePage === 'calendar' ? styles.navItemActive : ''}`}
+            onClick={() => setActivePage('calendar')}
+          >
             <Calendar className={styles.navIcon} />
             <span className={styles.navText}>Calendar</span>
           </li>
-          <li className={styles.navItem}>
+          <li 
+            className={`${styles.navItem} ${activePage === 'profile' ? styles.navItemActive : ''}`}
+            onClick={() => setActivePage('profile')}
+          >
+            <User className={styles.navIcon} />
+            <span className={styles.navText}>Profile</span>
+          </li>
+          <li 
+            className={`${styles.navItem} ${activePage === 'settings' ? styles.navItemActive : ''}`}
+            onClick={() => setActivePage('settings')}
+          >
             <Settings className={styles.navIcon} />
             <span className={styles.navText}>Settings</span>
           </li>

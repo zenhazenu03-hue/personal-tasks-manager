@@ -1,0 +1,220 @@
+.calendarContainer {
+  padding: 0 48px 48px; /* Remove top padding here, handle in header */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 0; /* Generous vertical padding */
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.monthTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navigationButtons {
+  display: flex;
+  gap: 16px; /* Increased gap between buttons */
+}
+
+.navBtn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.navBtn:hover {
+  background: var(--bg-color);
+  border-color: var(--text-muted);
+}
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dayOfWeek {
+  padding: 12px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.calendarCell {
+  min-height: 120px;
+  padding: 12px;
+  border-right: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calendarCell:nth-child(7n) {
+  border-right: none;
+}
+
+.calendarCell:hover {
+  background-color: rgba(37, 99, 235, 0.02);
+}
+
+.dayNumber {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-main);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.today .dayNumber {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.notCurrentMonth {
+  background-color: rgba(248, 250, 252, 0.5);
+}
+
+.notCurrentMonth .dayNumber {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.taskIndicator {
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.tasksList {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.taskItem {
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(37, 99, 235, 0.1);
+  color: var(--primary-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.taskItem:hover {
+  background-color: rgba(37, 99, 235, 0.2);
+}
+
+.todayFloatingBtn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+  border: 4px solid white;
+}
+
+.todayFloatingBtn:hover {
+  transform: translateY(-4px) scale(1.05);
+  background-color: var(--primary-hover);
+  box-shadow: 0 12px 20px rgba(37, 99, 235, 0.4);
+}
+
+.todayFloatingBtn:active {
+  transform: scale(0.95);
+}
+
+.todayDate {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.todayLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+/* Priority colors */
+.priority_high {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.priority_medium {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.priority_low {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.calendarCell {
+  cursor: pointer;
+}
+
+.calendarCell:hover .dayNumber {
+  background-color: var(--bg-color);
+}
+
+.today.calendarCell:hover .dayNumber {
+  background-color: var(--primary-color);
+}

@@ -6,9 +6,8 @@ import InboxList from '../components/InboxList';
 import inboxStyles from '../styles/inbox.module.css';
 import layoutStyles from '../styles/layout.module.css';
 
-const InboxPage = () => {
+const InboxPage = ({ tasks, setTasks, setActivePage }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
 
   useEffect(() => {
@@ -58,7 +57,11 @@ const InboxPage = () => {
 
   return (
     <div className={layoutStyles.mainContent}>
-      <Header onAddTask={() => { setEditingTask(null); setIsModalOpen(true); }} />
+      <Header 
+        title="Inbox" 
+        onAddTask={() => { setEditingTask(null); setIsModalOpen(true); }} 
+        onProfileClick={() => setActivePage('profile')}
+      />
       
       {tasks.length === 0 ? (
         <div className={inboxStyles.emptyStateContainer}>

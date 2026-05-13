@@ -7,6 +7,7 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
   const [description, setDescription] = useState('');
   
   // New functional state
+  const [status, setStatus] = useState('todo');
   const [priority, setPriority] = useState('none');
   const [date, setDate] = useState('Today');
   const [reminder, setReminder] = useState(false);
@@ -15,12 +16,14 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
     if (editingTask) {
       setTitle(editingTask.title || '');
       setDescription(editingTask.description || '');
+      setStatus(editingTask.status || 'todo');
       setPriority(editingTask.priority || 'none');
       setDate(editingTask.date || 'Today');
       setReminder(editingTask.reminder === 'Set');
     } else {
       setTitle('');
       setDescription('');
+      setStatus('todo');
       setPriority('none');
       setDate('Today');
       setReminder(false);
@@ -38,6 +41,12 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
   }, [isOpen, onClose]);
 
   if (!isOpen) return null;
+
+  const cycleStatus = () => {
+    const statuses = ['todo', 'in_progress', 'done'];
+    const nextIndex = (statuses.indexOf(status) + 1) % statuses.length;
+    setStatus(statuses[nextIndex]);
+  };
 
   const cyclePriority = () => {
     const priorities = ['none', 'low', 'medium', 'high'];
@@ -63,6 +72,7 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
       id: editingTask ? editingTask.id : Date.now(),
       title: title.trim(),
       description: description.trim(),
+      status: status,
       date: date,
       priority: priority !== 'none' ? priority : null,
       reminder: reminder ? 'Set' : null
@@ -71,6 +81,7 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
     // Reset state
     setTitle('');
     setDescription('');
+    setStatus('todo');
     setPriority('none');
     setDate('Today');
     setReminder(false);
@@ -104,6 +115,16 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
             ></textarea>
             
             <div className={styles.taskOptions}>
+              <button 
+                type="button" 
+                className={`${styles.taskOptionBtn} ${styles.statusBtn}`}
+                onClick={cycleStatus}
+              >
+                <div className={`${styles.statusDot} ${styles['status_' + status]}`}></div>
+                <span style={{ textTransform: 'capitalize' }}>
+                  {status.replace('_', ' ')}
+                </span>
+              </button>
               <button 
                 type="button" 
                 className={`${styles.taskOptionBtn} ${date !== 'No Date' ? styles.activeCalendar : ''}`}

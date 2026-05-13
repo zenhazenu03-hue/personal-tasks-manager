@@ -2,10 +2,10 @@ import React from 'react';
 import { Search, Bell, Plus } from 'lucide-react';
 import styles from '../styles/header.module.css';
 
-const Header = ({ onAddTask }) => {
+const Header = ({ title = "Inbox", onAddTask, onProfileClick }) => {
   return (
     <header className={styles.header}>
-      <div className={styles.headerTitle}>Inbox</div>
+      <div className={styles.headerTitle}>{title}</div>
       
       <div className={styles.headerActions}>
         <div style={{ position: 'relative' }}>
@@ -22,7 +22,7 @@ const Header = ({ onAddTask }) => {
           <Bell size={20} />
         </button>
         
-        <div className={styles.userProfile}>
+        <div className={styles.userProfile} onClick={onProfileClick} style={{ cursor: 'pointer' }}>
           JD
         </div>
       </div>

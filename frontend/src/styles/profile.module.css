@@ -1,0 +1,183 @@
+.profileContainer {
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profileHero {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary-color), #6366f1);
+  background-image: url('/C:/Users/DELL/.gemini/antigravity/brain/90f052e6-a30f-4eb1-81af-457fe171d320/profile_banner_abstract_1778654125231.png');
+  background-size: cover;
+  background-position: center;
+  height: 160px;
+  border-radius: 24px;
+  margin-bottom: 60px;
+}
+
+.profileCard {
+  background-color: white;
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  margin-top: -80px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+
+.avatarWrapper {
+  position: relative;
+  margin-top: -40px;
+}
+
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 32px;
+  background-color: white;
+  color: var(--primary-color);
+  font-size: 3.5rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 6px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.editAvatarBtn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: var(--primary-color);
+  border: 3px solid white;
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.editAvatarBtn:hover {
+  transform: scale(1.1);
+}
+
+.userBasicInfo h2 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.userBasicInfo p {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 24px;
+  background-color: #f8fafc;
+  border-radius: 20px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.profileForm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formGroupFull {
+  grid-column: span 2;
+}
+
+.formLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.formInput {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  font-size: 1rem;
+  color: var(--text-main);
+  outline: none;
+  transition: all 0.2s;
+}
+
+.formInput:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.saveBtn {
+  grid-column: span 2;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.saveBtn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}

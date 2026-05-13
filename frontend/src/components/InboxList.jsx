@@ -2,7 +2,7 @@ import React from 'react';
 import { Calendar, MoreHorizontal, Edit2, Trash2 } from 'lucide-react';
 import styles from '../styles/inbox.module.css';
 
-const InboxList = ({ tasks, onDeleteTask }) => {
+const InboxList = ({ tasks, onDeleteTask, onEditTask, onDuplicateTask }) => {
   return (
     <div className={styles.inboxListContainer}>
       <h2 className={styles.inboxHeader}>Inbox</h2>
