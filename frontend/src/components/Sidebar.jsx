@@ -1,8 +1,8 @@
 import React from 'react';
-import { LayoutDashboard, CheckSquare, Settings, Calendar, Plus, User } from 'lucide-react';
+import { LayoutDashboard, CheckSquare, Settings, Calendar, Plus, User, LogOut } from 'lucide-react';
 import styles from '../styles/sidebar.module.css';
 
-const Sidebar = ({ activePage, setActivePage }) => {
+const Sidebar = ({ activePage, setActivePage, onLogout }) => {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.sidebarLogoContainer}>
@@ -63,6 +63,13 @@ const Sidebar = ({ activePage, setActivePage }) => {
           </ul>
         </div>
       </nav>
+
+      <div className={styles.sidebarFooter}>
+        <div className={styles.navItem} onClick={onLogout}>
+          <LogOut className={styles.navIcon} />
+          <span className={styles.navText}>Log Out</span>
+        </div>
+      </div>
     </aside>
   );
 };
