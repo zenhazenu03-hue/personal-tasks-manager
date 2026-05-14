@@ -32,7 +32,8 @@ const TaskSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
-    required: false // Set to true once auth is implemented
+    required: [true, 'Task must belong to a user'],
+    index: true,
   },
   createdAt: {
     type: Date,

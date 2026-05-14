@@ -8,8 +8,8 @@ const InboxList = ({ tasks, onDeleteTask, onEditTask, onDuplicateTask }) => {
       <h2 className={styles.inboxHeader}>Inbox</h2>
       <div className={styles.inboxTasks}>
         {tasks.map(task => (
-          <div key={task.id} className={styles.inboxTaskRow}>
-            <div className={styles.taskCheckbox} onClick={() => onDeleteTask(task.id)}></div>
+          <div key={task._id} className={styles.inboxTaskRow}>
+            <div className={styles.taskCheckbox} onClick={() => onDeleteTask(task._id)}></div>
             <div className={styles.inboxTaskContent}>
               <div className={styles.inboxTaskTitle}>{task.title}</div>
               {task.description && (
@@ -36,7 +36,7 @@ const InboxList = ({ tasks, onDeleteTask, onEditTask, onDuplicateTask }) => {
               <button className={styles.actionBtn} onClick={() => onEditTask(task)}>
                 <Edit2 size={16} />
               </button>
-              <button className={styles.actionBtn} onClick={() => onDeleteTask(task._id || task.id)}>
+              <button className={styles.actionBtn} onClick={() => onDeleteTask(task._id)}>
                 <Trash2 size={16} />
               </button>
               <button className={styles.actionBtn} onClick={() => onDuplicateTask(task)}>

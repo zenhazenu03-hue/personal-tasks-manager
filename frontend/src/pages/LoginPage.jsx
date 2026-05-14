@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/login.module.css';
 import loginImg from '../assets/login_page.jpg';
-import { Mail, Lock, Layout, Github, Chrome, Facebook, User, ArrowLeft } from 'lucide-react';
+import { Mail, Lock, Layout, Github, Chrome, Facebook, User, ArrowLeft, Eye, EyeOff } from 'lucide-react';
 import { authApi } from '../utils/api';
 
 const LoginPage = ({ onLogin, setView }) => {
@@ -9,6 +9,7 @@ const LoginPage = ({ onLogin, setView }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,13 +92,21 @@ const LoginPage = ({ onLogin, setView }) => {
                 <div className={styles.inputWrapper}>
                   <Lock className={styles.icon} size={18} />
                   <input 
-                    type="password" 
+                    type={showPassword ? 'text' : 'password'} 
                     className={styles.input} 
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                  <button 
+                    type="button" 
+                    className={styles.eyeToggle} 
+                    onClick={() => setShowPassword(!showPassword)}
+                    tabIndex={-1}
+                  >
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
                 <a href="#" className={styles.forgotPassword}>Forgot password?</a>
               </div>

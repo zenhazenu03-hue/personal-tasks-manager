@@ -10,7 +10,7 @@ const MyTasksPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }
   const [editingTask, setEditingTask] = useState(null);
 
   const handleEditTask = (task) => {
-    setEditingTask({ ...task, id: task._id || task.id });
+    setEditingTask(task);
     setIsModalOpen(true);
   };
 
@@ -54,7 +54,7 @@ const MyTasksPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }
                   </div>
                 ) : (
                   columnTasks.map(task => (
-                    <div key={task._id || task.id} className={styles.kanbanCard} onClick={() => handleEditTask(task)}>
+                    <div key={task._id} className={styles.kanbanCard} onClick={() => handleEditTask(task)}>
                       <div className={styles.cardTitle}>{task.title}</div>
                       {task.description && <div className={styles.cardDesc}>{task.description}</div>}
                       

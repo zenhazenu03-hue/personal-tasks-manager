@@ -23,31 +23,16 @@ const InboxPage = ({ tasks, onSaveTask, onDeleteTask, setActivePage, loading }) 
   }, []);
 
   const handleDuplicateTask = (task) => {
-    const duplicate = {
-      ...task,
-      id: null, // Clear ID for a new task
+    const { _id, createdAt, __v, ...rest } = task;
+    onSaveTask({
+      ...rest,
       title: `${task.title} (Copy)`
-    };
-    onSaveTask(duplicate);
+    });
   };
 
   const handleEditTask = (task) => {
-    setEditingTask({ ...task, id: task._id || task.id });
+    setEditingTask(task);
     setIsModalOpen(true);
-  };
-
-  const handleDuplicateTask = (task) => {
-    const duplicate = {
-      ...task,
-      id: Date.now(),
-      title: `${task.title} (Copy)`
-    };
-    setTasks((prevTasks) => {
-      const taskIndex = prevTasks.findIndex(t => t.id === task.id);
-      const newTasks = [...prevTasks];
-      newTasks.splice(taskIndex + 1, 0, duplicate);
-      return newTasks;
-    });
   };
 
   return (

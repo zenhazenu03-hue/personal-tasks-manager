@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
 export const apiCall = async (endpoint, options = {}) => {
   const { method = 'GET', body = null, headers = {} } = options;
@@ -26,10 +26,11 @@ export const apiCall = async (endpoint, options = {}) => {
   try {
     const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
     
-    // Handle 401 Unauthorized (token expired or invalid)
+    // Handle 401 Unauthorized — clear token and notify app to logout
     if (response.status === 401) {
       localStorage.removeItem('flowdesk_token');
-      // Optional: Redirect to login or trigger a logout event
+      localStorage.removeItem('flowdesk_user');
+      window.dispatchEvent(new CustomEvent('flowdesk:unauthorized'));
     }
 
     const data = await response.json();

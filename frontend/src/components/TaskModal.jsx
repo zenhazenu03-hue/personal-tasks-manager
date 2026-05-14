@@ -69,7 +69,7 @@ const TaskModal = ({ isOpen, onClose, onSaveTask, editingTask }) => {
     if (!title.trim()) return;
 
     onSaveTask({
-      id: editingTask ? editingTask.id : Date.now(),
+      ...(editingTask?._id && { _id: editingTask._id }),
       title: title.trim(),
       description: description.trim(),
       status: status,

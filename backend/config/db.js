@@ -1,20 +1,23 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dns = require('dns');
+
+// Use Google DNS to resolve MongoDB Atlas SRV records.
+// Required because some local resolvers (e.g. VPN clients) block SRV queries.
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 const connectDB = async () => {
+  const uri = process.env.MONGODB_URI;
+
+  if (!uri) {
+    console.error('[DB] MONGODB_URI is not defined in environment variables.');
+    process.exit(1);
+  }
+
   try {
-    console.log('Connecting to MongoDB...');
-    // Log the URI but mask the password for security
-    const maskedURI = process.env.MONGODB_URI.replace(/:([^@]+)@/, ':****@');
-    console.log(`URI: ${maskedURI}`);
-    
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
+    const conn = await mongoose.connect(uri, { family: 4 });
+    console.log(`[DB] Connected → ${conn.connection.host}`);
+  } catch (err) {
+    console.error(`[DB] Connection failed: ${err.message}`);
     process.exit(1);
   }
 };

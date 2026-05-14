@@ -37,6 +37,13 @@ function App() {
     }
   }, [isAuthenticated]);
 
+  // Auto-logout when the API receives a 401 (expired/invalid token)
+  useEffect(() => {
+    const onUnauthorized = () => handleLogout();
+    window.addEventListener('flowdesk:unauthorized', onUnauthorized);
+    return () => window.removeEventListener('flowdesk:unauthorized', onUnauthorized);
+  }, []);
+
   const fetchTasks = async () => {
     try {
       setLoading(true);
@@ -54,18 +61,14 @@ function App() {
 
   const handleSaveTask = async (taskData) => {
     try {
-      if (taskData.id && String(taskData.id).length > 10) { // Check if it's a temp ID or Mongo ID
-        // For now, if it has an ID, we try to update if it exists in tasks
-        const existingTask = tasks.find(t => t._id === taskData.id || t.id === taskData.id);
-        if (existingTask) {
-          const updated = await tasksApi.update(existingTask._id || existingTask.id, taskData);
-          setTasks(prev => prev.map(t => (t._id === updated._id ? updated : t)));
-          return;
-        }
+      // If taskData has a MongoDB _id, it's an update; otherwise create
+      if (taskData._id) {
+        const updated = await tasksApi.update(taskData._id, taskData);
+        setTasks(prev => prev.map(t => (t._id === updated._id ? updated : t)));
+      } else {
+        const newTask = await tasksApi.create(taskData);
+        setTasks(prev => [newTask, ...prev]);
       }
-      
-      const newTask = await tasksApi.create(taskData);
-      setTasks(prev => [newTask, ...prev]);
     } catch (error) {
       console.error('Failed to save task:', error);
     }
@@ -74,7 +77,7 @@ function App() {
   const handleDeleteTask = async (id) => {
     try {
       await tasksApi.delete(id);
-      setTasks(prev => prev.filter(t => t._id !== id && t.id !== id));
+      setTasks(prev => prev.filter(t => t._id !== id));
     } catch (error) {
       console.error('Failed to delete task:', error);
     }

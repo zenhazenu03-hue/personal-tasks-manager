@@ -38,7 +38,7 @@ const LandingPage = ({ setView }) => {
         </p>
         
         <div className={styles.ctaGroup}>
-          <button className={styles.primaryBtn} onClick={() => setView('login')}>
+          <button className={styles.primaryBtn} onClick={() => setView('signup')}>
             Get Started for Free
           </button>
           <button className={styles.secondaryBtn}>
@@ -158,7 +158,7 @@ const LandingPage = ({ setView }) => {
               <li className={styles.planFeature}><CheckCircle2 size={20} /> Offline mode for work on the go</li>
               <li className={styles.planFeature}><CheckCircle2 size={20} /> Deep integrations with your favorite tools</li>
             </ul>
-            <button className={styles.primaryBtn} onClick={() => setView('login')}>Learn More</button>
+            <button className={styles.primaryBtn} onClick={() => setView('signup')}>Learn More</button>
           </div>
           <div className={styles.aboutImageContainer}>
              <img 
@@ -225,7 +225,7 @@ const LandingPage = ({ setView }) => {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Ready to boost your productivity?</h2>
           <p className={styles.subtitle}>Join thousands of users who have transformed the way they work with FlowDesk.</p>
-          <button className={styles.primaryBtn} onClick={() => setView('login')}>
+          <button className={styles.primaryBtn} onClick={() => setView('signup')}>
             Start Your Free Trial
           </button>
         </div>
