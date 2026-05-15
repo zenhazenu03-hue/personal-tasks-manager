@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../styles/login.module.css';
+import loginImg from '../assets/login_page.jpg';
 import { Mail, Lock, Layout, Github, Chrome, Facebook, User, ArrowLeft, UserPlus, Eye, EyeOff } from 'lucide-react';
 import { authApi } from '../utils/api';
 
@@ -47,24 +48,21 @@ const SignupPage = ({ onSignup, setView }) => {
         {/* Left Side: Illustration & Promo */}
         <div className={styles.leftSide}>
           <div className={styles.illustrationWrapper}>
+            <img
+              src={loginImg}
+              alt="Signup Workspace"
+              style={{
+                width: '100%',
+                borderRadius: '24px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                marginBottom: '2.5rem'
+              }}
+            />
             <h2 className={styles.promoTitle}>Start your journey with FlowDesk today.</h2>
             <p className={styles.promoText}>
               Create your free account and discover why thousands of professionals 
               choose FlowDesk for their daily productivity.
             </p>
-            <div style={{ 
-              background: 'white', 
-              padding: '2rem', 
-              border: '1px solid #f1f5f9',
-              borderRadius: '24px', 
-              boxShadow: '0 20px 40px rgba(0,0,0,0.05)'
-            }}>
-               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.5rem' }}>
-                <div style={{ width: '40px', height: '40px', background: '#eff6ff', borderRadius: '50%' }}></div>
-                <div style={{ height: '12px', width: '40%', background: '#f1f5f9', borderRadius: '6px' }}></div>
-              </div>
-              <div style={{ height: '12px', width: '80%', background: '#eef2ff', borderRadius: '6px' }}></div>
-            </div>
           </div>
         </div>
 
